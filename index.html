@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To Sophia, With Love</title>
+  <style>
+    :root {
+      --bg-image: url('https://png.pngtree.com/background/20250116/original/pngtree-wisteria-flower-background-for-elegant-design-picture-image_15517153.jpg');
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+      background: var(--bg-image) no-repeat center center fixed;
+      background-size: cover;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 1rem;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 1s ease forwards;
+      z-index: 3;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #c2185b;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    .signature {
+      font-style: italic;
+      text-align: right;
+      color: #888;
+      margin-top: 2rem;
+    }
+    .heart {
+      font-size: 2rem;
+      margin-top: 1rem;
+      animation: beat 1s infinite;
+    }
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .open-btn {
+      background-color: #c2185b;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s;
+      z-index: 3;
+    }
+    .open-btn:hover {
+      background-color: #a3154e;
+    }
+    /* Floating hearts overlay */
+    #heartsOverlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+      display: none;
+    }
+    .floating-heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center;
+      background-size: contain;
+      animation: floatUpOverlay 3s ease forwards;
+      opacity: 0.8;
+    }
+    @keyframes floatUpOverlay {
+      0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      .open-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <button class="open-btn" id="openBtn">💌 Open Letter</button>
+
+    <div class="card" id="loveLetter">
+      <h1>Dear Sophia,</h1>
+      <p>
+        From the moment you entered my life, something beautiful began.
+        Throughout it all, through every hardship, arguement or complication, I see myself with you darling. You've bought joy, peace and alotta fun to my days, every single day infact.
+      </p>
+      <p>
+        From our very first conversation (yes even on overwatch), I could already tell your were stupidly autistc and most of all incredibly fun to hang out with as well as spend most of my days with. You are more than just someone special... you're unforgettable.
+      </p>
+      <p>
+        I dream of a future with you. One filled with love, adventure, and quiet moments where nothing else matters but us. mwah
+      </p>
+      <p class="signature">
+        Forever yours,<br>
+        Steph. 💻❤️
+      </p>
+      <div class="heart">💖</div>
+    </div>
+  </div>
+
+  <!-- Hearts overlay -->
+  <div id="heartsOverlay"></div>
+
+  <!-- Hidden YouTube player -->
+  <iframe
+    id="ytplayer"
+    width="0"
+    height="0"
+    src=""
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+    style="position:fixed;pointer-events:none;opacity:0;"
+  ></iframe>
+
+  <script>
+    const openBtn = document.getElementById('openBtn');
+    const heartsOverlay = document.getElementById('heartsOverlay');
+    const loveLetter = document.getElementById('loveLetter');
+    const ytplayer = document.getElementById('ytplayer');
+
+    openBtn.addEventListener('click', () => {
+      openBtn.style.display = 'none';
+      heartsOverlay.style.display = 'block';
+
+      // Start YouTube music (loop enabled)
+      ytplayer.src = "https://www.youtube.com/embed/4adZ7AguVcw?autoplay=1&loop=1&playlist=4adZ7AguVcw";
+
+      // Create floating hearts
+      for (let i = 0; i < 100; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.animationDelay = (Math.random() * 2).toFixed(2) + 's';
+        heart.style.transform = `scale(${Math.random() * 0.8 + 0.5})`;
+        heartsOverlay.appendChild(heart);
+      }
+
+      // Show letter after hearts animation
+      setTimeout(() => {
+        loveLetter.style.display = 'flex';
+        heartsOverlay.style.opacity = '0';
+        setTimeout(() => {
+          heartsOverlay.style.display = 'none';
+          heartsOverlay.innerHTML = '';
+          heartsOverlay.style.opacity = '1';
+        }, 1000);
+      }, 3200);
+    });
+  </script>
+
+</body>
+</html>
